@@ -25,8 +25,8 @@ char    *strrcher(const char *s, int c);
 int strncmp(const char *s1, const char *s2, size_t n);
 void    *memchr(const void *s, int c, size_t n);
 int memcmp(const void *s1, const void *s2, size_t n);
-char    *ft_strnstr(const cr *needle, size_t len);
-int atoi(const char *haystack, const chat char *nptr);
+char    *ft_strnstr(const char *haystack, const char *needle, size_t len);
+int atoi(const char *str);
 void    *calloc(size_t count, size_t size);
 char    *ft_strdup(const char *s);
 
