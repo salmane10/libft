@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salman <salman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: slouham <salman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:29 by slouham           #+#    #+#             */
 /*   Updated: 2023/12/01 18:18:41 by salman           ###   ########.fr       */
@@ -12,52 +12,50 @@
 
 #include "libft.h"
 
-char **ft_split(char const *s, char c)
+static  size_t  words_count(char *s , char c)
 {
-	size_t  count = 0;
-	int in_substr = 0;
+    size_t counter;
 
-	while (*s)
-	{
-		if (*s != c && in_substr == 0)
-		{
-			in_substr = 1;
-			count++;
-		}
-		else if (*s == c)
-			in_substr = 0;
-		s++;
-	}
-	return (count);
+    counter = 0;
+    while (*s)
+    {
+        if (*s != c)
+        {
+            while (*s && *s != c)
+                s++;
+            counter++;
+        } 
+        else
+            s++;
+    }
+    return counter;
 }
 
-char	**ft_split(const char *s, char c)
+static  void    free_sub(char **sub_str , size_t j)
 {
-	size_t  i;
-	size_t  j;
-	size_t  substr_count;
-	char    **result;
+    while (j > 0)
+        free(sub_str[--j]);
+    free(sub_str);
+}
 
-	if (!s)
-		return (NULL);
-	substr_count = ft_count_substr(s, c);
-	result = (char **)malloc((substr_count + 1) * sizeof(char *));
-	if (!result)
-		return (NULL);
-	i = 0;
-	while (i < substr_count)
-	{
-		while (*s == c)
-			s++;
-		j = 0;
-		while (s[j] && s[j] != c)
-			j++;
-		result[i] = ft_substr(s, 0, j);
-		if (!result[i])
-			return (NULL);
-		s += j;
-		i++;
-	}
-	result[i] = NULL;
-	return (result);
+static char *fill_sub(char *dest , const char *src , size_t len)
+{
+    size_t i;
+
+    i = 0;
+    while(len > 0)
+    {
+        dest[i] = src[i];
+        i++;
+        len--;
+    }
+    dest[i] = '\0';
+    return (dest);
+}
+
+
+
+char    **ft_split(char const *s, char c)
+{
+
 }
